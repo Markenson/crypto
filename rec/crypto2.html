@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<HEAD>
+		<script language="javascript" src="./base64js.min.js"></script>
+		<script language="javascript" src="./OpenCrypto.js"></script>
+	</HEAD>
+	<BODY>
+
+		<script>
+
+			function Base64Decode(str, encoding = 'utf-8') {
+				var bytes = base64js.toByteArray(str);
+				return new (TextDecoder || TextDecoderLite)(encoding).decode(bytes);
+			}
+			const oc = new OpenCrypto();
+			var alg = "SHA-1"; //can be "SHA-1", "SHA-256", "SHA-384", or "SHA-512"
+			var bits = 2048; //can be 1024, 2048, or 4096
+			var plainData = 'teste123';
+			var toEncrypt =  new TextEncoder().encode(plainData)
+			var privPEM = null;
+			var encData = null;
+			
+			console.log('Alg:' + alg)
+			console.log('Bits:' + bits)
+
+			var javaKey = new TextEncoder().encode(atob("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhZwGyW2Lim4vTFDy3XLmG8XKLVBquA0xdw+8726CeAqTDvaJo/sGX6gjj8fXp9LMJ9aMZ9jp/cJ429yGX87mu+2vDIsTjFx2Sdzp0+IFkFQ08wmgBwj7PLcf3JBtrLe2gW+yMlCNncHiQbCfWZ/LePgrVx1jcBvNTEK7oR53M5y7+22SJTM7JHzwaXzsnWZXV2g2mjSoeNYX2YiYGNTh0FJxerEdwCnUL6ilUqgheSxL6vKsIwmCCt8OMnd7T93vudOe8GsSfBDGtKTJ3adD1zyFejIqI8v6DWgMjKT+CWnB3Ya667uq2tEwVWvgyUGCCyzxCa9bS7Fnl9pW8nyw1wIDAQAB"))
+
+			window.crypto.subtle.importKey(
+				"spki", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
+				javaKey,
+				{   //these are the algorithm options
+					name: "RSA-OAEP",
+					hash: {name: "SHA-256"}, //can be "SHA-1", "SHA-256", "SHA-384", or "SHA-512"
+				},
+				false, //whether the key is extractable (i.e. can be used in exportKey)
+				["encrypt"] //"encrypt" or "wrapKey" for public key import or
+							//"decrypt" or "unwrapKey" for private key imports
+			)
+			.then(function(publicKey){
+				//returns a publicKey (or privateKey if you are importing a private key)
+				console.log(publicKey);
+			})
+			.catch(function(err){
+				console.log(err);
+			});
+
+			window.crypto.subtle.generateKey(
+				{
+					name: "RSA-OAEP",
+					modulusLength: bits, 
+					publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
+					hash: {name: alg}, 
+				},
+				true, //whether the key is extractable (i.e. can be used in exportKey)
+				["encrypt", "decrypt"] //must be ["encrypt", "decrypt"] or ["wrapKey", "unwrapKey"]
+			)
+			.then(function(keyPair){
+				window.keyPair = keyPair
+				return oc.cryptoPrivateToPem(window.keyPair.privateKey)
+			})
+			.then(function(privateKeyPEM){
+			  //privateKeyPEM = "-----BEGIN PRIVATE KEY-----MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCgPT5+PuYYY8IVEx1ICZRKZao1MPWPpn0oFPxaro2EuWQOf5/WK25sRU2uHi1fshslhlS0rahK9E8N3CG2Bi3JA1EymTTYBGrW2MgDx/Y1kDUbHQW3DdO/WxAQVIssaR9lp3LgCgyAkBgjGXXEcjYinDqr/7Rvzlf9O8lnd8akz4uNOX77MS1Ktl+282qn6IfCQGbuTaahUFvpq/7Ur3k09esABfjWoHxprp26h5T3ZYnj32wgdF2qA5oUKglEkiFGZkA91cxNGVKGF0VIBzj3kZ8F6h7GlcFGbHTFmyaFHuM0OzrGwtyo4zOlAmroIUPznDOfnCNKPMnKgJcDh1xDAgMBAAECggEAGc7YuoXwPUwOkve0fEkUBIosncs4Nwi+Q68NmKALKa30+uN8n4ajOaD33+v7AYddbppyGMpCFBXBMx7vTF02Zpe4LjQVb21WtSp5HH109C+OaMLbNskX/6FFDGbxe2z695O+oW2SPJVOAz6IhI6jQB51fK+pz2V72ndp+tYvEkAck09V6kEXs87sP1sjYdJp0iqB0eKIKpDb7qAVEh3X4kKmQbP+szTMcIsrI1q29fi0JjcS1Ba73PJFc/nF9OLlFCg9LoBi78tvml2fEpmh1W+98BZz0l9ciqyTD5OyUOh7a16XGAWuciMBLMiCk+t25VuNn4G8MOC+jjKIykUJ8QKBgQDSx1dZkA6ZmFltZl9ZoGyPf05c+LyFGv8pI+aTeu7cTLBZztUQyr6z0A0Vuv5JRxK/5uyD3CP56eve6QJlhXDWzeciyea2/TqcaidpXGPV79gMxQOB1WNfjwJAHYluerU23Y89NhZAFNQ15Pn8wHzOplkGNqX+4betyVgcMKDETQKBgQDCnhxCYv5w2O0z798rLuR6JbRStYvXsApA/1TkYpc4i5h79DqMpcnUgAd3gnEyUcrzy1yoc/EPTwVzY7MYyt00gRD9Tr11cnInGesinv9T+8UyFfq+z9gjSbszkc15ISi3IHELSzHISXP7WJvnpxVktXmw2j0+XEYQoZcp0KQqzwKBgQDBHl9L8g9ObyXQdHF8Xt3YhB26VTP1CI0slnYWPhZHxgP15OmWnwwnF8JFXLTLUtE8/klJbxOPUOIJtJe7iI2gYbsaRr6afl2LHj/J6xqV01CyMnhKJscLsK2xLN7UWJ1cDZfFz56HTA466vaYu4weko8SgFOKuihelBGkknFaKQKBgHXUgqmTBBhQznS2k3iywHRP5bh54HwrQloN/Vj1dDcxFZZezSAgtG0rQtoRqPVdXjJy+tumrtmk71jokSO+l2VVi3LCPKUiMIkKAToJ5+7yLXdgpVrnviXHW0cizLO85sjRJIBA+5gXGNih0mrT13kNAuuXhqL9/RHOtBYGE48zAoGBALBE5BxQ0AyC79vpKbXJDO6ck+qG3jPfV2YpFThNbi220j7eCXOQEDaF90q1MZ2ARD2MSCBrNYqGLL9AfKsGOKd7C14OnEU5EVEBK4W8eYgYrOYrcssVndkY0UEznh4afaBWcpiGQ4bev7RP8jHKO3aDJ37hFsHSQGF44Cg9Q+7V-----END PRIVATE KEY-----";
+			  privPEM = privateKeyPEM;
+			  console.log(privPEM)
+			  return oc.cryptoPublicToPem(window.keyPair.publicKey)
+			})
+			.then(function(pubPEM){
+			  //pubPEM = "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoD0+fj7mGGPCFRMdSAmUSmWqNTD1j6Z9KBT8Wq6NhLlkDn+f1itubEVNrh4tX7IbJYZUtK2oSvRPDdwhtgYtyQNRMpk02ARq1tjIA8f2NZA1Gx0Ftw3Tv1sQEFSLLGkfZady4AoMgJAYIxl1xHI2Ipw6q/+0b85X/TvJZ3fGpM+LjTl++zEtSrZftvNqp+iHwkBm7k2moVBb6av+1K95NPXrAAX41qB8aa6duoeU92WJ499sIHRdqgOaFCoJRJIhRmZAPdXMTRlShhdFSAc495GfBeoexpXBRmx0xZsmhR7jNDs6xsLcqOMzpQJq6CFD85wzn5wjSjzJyoCXA4dcQwIDAQAB-----END PUBLIC KEY-----"
+			  console.log(pubPEM)
+			  return oc.pemPublicToCrypto(pubPEM)
+			})
+			.then(function(pubK){
+			  return window.crypto.subtle.encrypt(
+						{
+							name: "RSA-OAEP",
+							//label: Uint8Array([...]) //optional
+						},
+						pubK, //from generateKey or importKey above
+						toEncrypt //ArrayBuffer of data you want to encrypt
+					)
+			})
+			.then(function(encrypted){
+				//returns an ArrayBuffer containing the encrypted data
+				var encArray = new Uint8Array(encrypted);
+				var encBytes = new TextEncoder().encode(encArray)
+
+debugger
+				console.log('----- btoa ------')
+				console.log(encrypted)
+				console.log('encrypted: ' + btoa(encrypted))
+				console.log('encArray: ' + btoa(encArray))
+				console.log(encBytes);
+				console.log('encBytes: ' + btoa(encBytes))
+
+				console.log('----- .0000000000000000000000 ------')
+				console.log(encrypted)
+				console.log('encrypted: ' + Base64Encode(encrypted))
+				console.log('encArray: ' + Base64Encode(encArray))
+				console.log(encBytes);
+				console.log('encBytes: ' + Base64Encode(encBytes))
+
+			})
+
+			.catch(function(err){
+				console.error(err);
+			});
+			
+	
+		</script>	
+	</BODY>
+
+</html>
