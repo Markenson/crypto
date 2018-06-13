@@ -37,8 +37,9 @@ public class JsJavaCryptTest {
 	@Test
 	public void test015CriptografarSenha() throws NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IOException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException{
 		String senha = "teste";
-		
-		/*String chavePublica = ""
+
+		/*
+		String chavePublica = ""
 + "-----BEGIN PUBLIC KEY-----"
 + "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoD0+fj7mGGPCFRMdSAmU"
 + "SmWqNTD1j6Z9KBT8Wq6NhLlkDn+f1itubEVNrh4tX7IbJYZUtK2oSvRPDdwhtgYt"
@@ -79,13 +80,15 @@ public class JsJavaCryptTest {
 + "O3aDJ37hFsHSQGF44Cg9Q+7V"
 + "-----END PRIVATE KEY-----";
 		
-		*/
-		String chavePublica = "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoD0+fj7mGGPCFRMdSAmUSmWqNTD1j6Z9KBT8Wq6NhLlkDn+f1itubEVNrh4tX7IbJYZUtK2oSvRPDdwhtgYtyQNRMpk02ARq1tjIA8f2NZA1Gx0Ftw3Tv1sQEFSLLGkfZady4AoMgJAYIxl1xHI2Ipw6q/+0b85X/TvJZ3fGpM+LjTl++zEtSrZftvNqp+iHwkBm7k2moVBb6av+1K95NPXrAAX41qB8aa6duoeU92WJ499sIHRdqgOaFCoJRJIhRmZAPdXMTRlShhdFSAc495GfBeoexpXBRmx0xZsmhR7jNDs6xsLcqOMzpQJq6CFD85wzn5wjSjzJyoCXA4dcQwIDAQAB-----END PUBLIC KEY-----";
-		String chavePrivada = "-----BEGIN PRIVATE KEY-----MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCgPT5+PuYYY8IVEx1ICZRKZao1MPWPpn0oFPxaro2EuWQOf5/WK25sRU2uHi1fshslhlS0rahK9E8N3CG2Bi3JA1EymTTYBGrW2MgDx/Y1kDUbHQW3DdO/WxAQVIssaR9lp3LgCgyAkBgjGXXEcjYinDqr/7Rvzlf9O8lnd8akz4uNOX77MS1Ktl+282qn6IfCQGbuTaahUFvpq/7Ur3k09esABfjWoHxprp26h5T3ZYnj32wgdF2qA5oUKglEkiFGZkA91cxNGVKGF0VIBzj3kZ8F6h7GlcFGbHTFmyaFHuM0OzrGwtyo4zOlAmroIUPznDOfnCNKPMnKgJcDh1xDAgMBAAECggEAGc7YuoXwPUwOkve0fEkUBIosncs4Nwi+Q68NmKALKa30+uN8n4ajOaD33+v7AYddbppyGMpCFBXBMx7vTF02Zpe4LjQVb21WtSp5HH109C+OaMLbNskX/6FFDGbxe2z695O+oW2SPJVOAz6IhI6jQB51fK+pz2V72ndp+tYvEkAck09V6kEXs87sP1sjYdJp0iqB0eKIKpDb7qAVEh3X4kKmQbP+szTMcIsrI1q29fi0JjcS1Ba73PJFc/nF9OLlFCg9LoBi78tvml2fEpmh1W+98BZz0l9ciqyTD5OyUOh7a16XGAWuciMBLMiCk+t25VuNn4G8MOC+jjKIykUJ8QKBgQDSx1dZkA6ZmFltZl9ZoGyPf05c+LyFGv8pI+aTeu7cTLBZztUQyr6z0A0Vuv5JRxK/5uyD3CP56eve6QJlhXDWzeciyea2/TqcaidpXGPV79gMxQOB1WNfjwJAHYluerU23Y89NhZAFNQ15Pn8wHzOplkGNqX+4betyVgcMKDETQKBgQDCnhxCYv5w2O0z798rLuR6JbRStYvXsApA/1TkYpc4i5h79DqMpcnUgAd3gnEyUcrzy1yoc/EPTwVzY7MYyt00gRD9Tr11cnInGesinv9T+8UyFfq+z9gjSbszkc15ISi3IHELSzHISXP7WJvnpxVktXmw2j0+XEYQoZcp0KQqzwKBgQDBHl9L8g9ObyXQdHF8Xt3YhB26VTP1CI0slnYWPhZHxgP15OmWnwwnF8JFXLTLUtE8/klJbxOPUOIJtJe7iI2gYbsaRr6afl2LHj/J6xqV01CyMnhKJscLsK2xLN7UWJ1cDZfFz56HTA466vaYu4weko8SgFOKuihelBGkknFaKQKBgHXUgqmTBBhQznS2k3iywHRP5bh54HwrQloN/Vj1dDcxFZZezSAgtG0rQtoRqPVdXjJy+tumrtmk71jokSO+l2VVi3LCPKUiMIkKAToJ5+7yLXdgpVrnviXHW0cizLO85sjRJIBA+5gXGNih0mrT13kNAuuXhqL9/RHOtBYGE48zAoGBALBE5BxQ0AyC79vpKbXJDO6ck+qG3jPfV2YpFThNbi220j7eCXOQEDaF90q1MZ2ARD2MSCBrNYqGLL9AfKsGOKd7C14OnEU5EVEBK4W8eYgYrOYrcssVndkY0UEznh4afaBWcpiGQ4bev7RP8jHKO3aDJ37hFsHSQGF44Cg9Q+7V-----END PRIVATE KEY-----";
-		
+*/
+		String[]  keys = createKeys();
+		String chavePublica = keys[PUB_K];
+		String chavePrivada = keys[PRIV_K];
+
         String privateKeyContent = chavePrivada.replaceAll("\\n", "").replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "");
         String publicKeyContent = chavePublica.replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "");;
 
+		
 		Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWITHSHA1ANDMGF1PADDING");
 
         KeyFactory kf = KeyFactory.getInstance("RSA");
@@ -98,20 +101,51 @@ public class JsJavaCryptTest {
 
 		cipher.init(Cipher.ENCRYPT_MODE, pubKey);
 		byte[] encryptedData = cipher.doFinal(senha.getBytes());
-		String b64Enc = Base64.encodeBytes(encryptedData,Base64.DONT_BREAK_LINES); 
-		System.out.println("Encriptada:" + b64Enc);
+		System.out.println("Encriptada:" + Base64.encodeBytes(encryptedData));
 		
 		cipher.init(Cipher.DECRYPT_MODE, privKey);
-		byte[] decryptedData = cipher.doFinal(Base64.decode(b64Enc));
+		byte[] decryptedData = cipher.doFinal(encryptedData);
 
 		assertTrue(senha.equals(new String(decryptedData)));
 
-		String fromWeb = "NjQsMTQyLDE0MywxMTMsMTk3LDIwLDE1OCw3NywxNDEsMTQ3LDIwNyw2OCwxMTEsNzEsMjUxLDk4LDE1NSwxNDksOTksNiwxMjAsMTY1LDg1LDY0LDE0Miw4LDE0MywxNzcsMjIyLDIzMCwxMjYsMjM4LDQyLDQsMTA0LDE3MiwxNTcsMTI2LDE3NCwxNDcsODMsNTEsMjM5LDE0OSwyMTgsMjMwLDgyLDE3MywxODAsNTcsMjM3LDE5MCwyMzIsMTQzLDEyNCwyMzIsMTQ0LDIwMSwyLDE1Myw5OSwzMCwxNzEsODIsMjA1LDIxNyw2NSwxMTYsNjQsMTIxLDUzLDE3MSwyNDgsMTcwLDIxLDcwLDQ0LDE2MiwxMjQsMTUwLDE2LDIxMSwxMSwyMTgsMTE3LDg0LDU1LDEwLDE2MiwxNzUsMjE2LDMsNTgsMTg4LDI1MSw4Myw5NiwzNiw1NiwyMzUsNzYsNDQsMzMsMTQ5LDUxLDEyNywxMzksMTY1LDIwNiwxNDksMTc4LDIsOTQsMyw5OCwxOTcsMjQwLDI1NSw5OSwxNDMsNzAsMTc0LDIzMiw0OCwyMjYsMTk5LDEzMiwxMjEsMTU5LDY1LDE2OCwxOSwxLDE3NywyNTUsMTAsODEsNjUsMjgsMjksMjA4LDEwLDg2LDIyMywxNDUsODksMTUsMjIwLDc2LDEyNiwxNTEsODYsMywxODgsMjMsNjEsMjIzLDEwMiwxNDEsNzQsMTg2LDEwLDkxLDIzNyw5MywyMDMsMTgsNzgsMTI0LDE4NSwxMzIsOTcsNjgsMjQxLDI0NCwxMjAsMjQ5LDE1NCw1Nyw1OCwxNzQsNTgsODgsMjM2LDc3LDI1MCwxNjEsMTI1LDE4MywxNzUsMjUxLDE1LDE1Niw0Niw0NSwxMTksMjQ2LDE4NiwzMiwzMyw3MywxMywyNTQsMTcxLDY4LDIzNywyNDYsMTQ4LDEwOSwyMDEsODgsMTA1LDIxNiwxOTksMjA4LDM2LDgwLDAsMTQyLDE4MywzMiwyMTksNCwxMiwxMzksMTIyLDI0NCwxODMsNTEsOCwyOSwxMSw5MCw0NCwyMzEsMTI4LDkxLDE1MiwyMDEsMTI2LDkxLDIxMSwyNDUsMTE3LDEwMSwyMDQsMjU1LDEyLDE5NSw5OSwxNDksMTQ5LDE2NSwxMDMsMjksMTk3";
+		String fromWeb = "MTAwLDE3OSwxNSw4MCwxOTUsNjksODYsMTgyLDEwMSwyMTAsMTU1LDk1LDc2LDg2LDM2LDEyNiwyMTAsNzksMTUyLDEzNSwxNDIsMTg1LDE1NCwyMzUsMTUsMTc3LDgzLDIxOCwyNTQsMjE2LDIxOCwxNzgsMTE5LDEzNCw0OCwxMDksNDcsMjQ0LDIyLDExNywxMDEsNDgsMjM4LDU1LDEyOSw5NiwyMTYsNjUsNzgsMTc5LDE1OCwyMzgsMTQzLDIwMSwxODUsMjI2LDY3LDE1MSw1NCwxMyw1MCw0OCwyMTcsODAsMTI0LDMyLDIwLDEyNywxMDcsMTMzLDExOCwxNjEsMTc1LDE3NCwyMTYsMzcsMTE5LDExNSwzOSwyNDcsMTcxLDkwLDI1NSwyNDMsNCwxMzksMTgyLDEyMSw2OCw3NCw5MCwxMSwzNiw2NSwyMTcsNTksNjMsNTcsMTY0LDU3LDEwMywwLDE3NCwxODYsMTA2LDE5MiwxNTMsMTU4LDQsMjE0LDE4Niw3MSwxMDgsMTI0LDEyMSwxNjEsMjAsMTQ2LDI1MCw2MiwyMDUsMTEyLDE2LDExNSwyMjEsMjQwLDgzLDI1MiwxOTEsMzcsNTAsMjQsNDUsODMsNjgsMTQsMTc5LDIwLDc1LDEwLDI0LDcxLDEyLDEyNSwzOCwxMDksNjYsNTcsNzUsMTI0LDEwNiwxNjAsMjM0LDExOCwxMzMsOCw4NSwyMywxNCwxNzQsMTQ0LDEwOSwyMjksMjUwLDUyLDI0NSwyNSw0LDIzMCw5NCwxODMsMjAzLDE1LDE1NCwxMjcsNzksNDUsMywxOTcsNDksMTQ2LDE5MCw2MCwxNjIsMjQ1LDEwNiwxNzAsMTE4LDE3OSw4OCw0NSwxMzMsMjAwLDE5MiwxNDYsMTkyLDIzNiwwLDE5MSw4NCwxNjEsMTc3LDExNCw1NywzNywxMjcsMTYsMTgwLDE4NCwzMCwyMzQsMjAsMTk3LDQzLDI1NSwyMTAsMTc5LDY2LDExNCwyNTUsMTI3LDg1LDEyMywyMTIsMjQ1LDg3LDI0MSw0OCwyNTAsOTksNjAsMTYwLDQwLDIyMSwyMywyNDMsMTU0LDE4NiwxODEsMjIwLDIzNCwyMTgsMjIwLDgzLDkxLDcwLDI1Miw3Myw5NywxOTAsMjQwLDEyNCw3LDE5MiwxNjUsOTk=";
 		byte[] decriptFromWeb = cipher.doFinal(Base64.decode(fromWeb));
 		assertTrue("teste123".equals(new String(decriptFromWeb)));
 
 		
 
+	}
+
+	private String[] createKeys() {
+		String[] keys = new String[2];
+		try {
+			KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+			kpg.initialize(2048);
+			KeyPair kp = kpg.generateKeyPair();
+			Key pub = kp.getPublic();
+			Key pvt = kp.getPrivate();
+			
+			StringBuffer sbPvt = new StringBuffer();
+			sbPvt.append("-----BEGIN PRIVATE KEY-----\n");
+			sbPvt.append(Base64.encodeBytes(pvt.getEncoded()));
+			sbPvt.append("\n-----END PRIVATE KEY-----\n");
+			
+			StringBuffer sbPub = new StringBuffer();
+			sbPub.append("-----BEGIN PUBLIC KEY-----\n");
+			sbPub.append(Base64.encodeBytes(pub.getEncoded()));
+			sbPub.append("\n-----END PUBLIC KEY-----\n");
+
+			keys[PRIV_K] = sbPvt.toString();
+			keys[PUB_K] = sbPub.toString();
+			
+			System.out.println("Private:\n" + keys[PRIV_K]);
+			System.out.println("Public:\n" + keys[PUB_K]);
+			
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return keys;
 	}
 
 	
