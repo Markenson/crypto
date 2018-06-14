@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a8f5371-a953-4808-a540-5c3597fbe392" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/JsJavaCryptTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/crypto2.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/js-java-crypt.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rec/JsJavaCryptTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rec/OpenCrypto.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rec/base64js.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rec/crypto.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/br/com/markenson/crypt/App.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/rec/crypto2.html" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rec/crypto2.html" afterPath="$PROJECT_DIR$/web/crypto.html" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,6 +43,16 @@
             <path>
               <item name="js-java-crypt" type="b2602c69:ProjectViewProjectNode" />
               <item name="js-java-crypt" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="js-java-crypt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="js-java-crypt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="js-java-crypt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="js-java-crypt" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
